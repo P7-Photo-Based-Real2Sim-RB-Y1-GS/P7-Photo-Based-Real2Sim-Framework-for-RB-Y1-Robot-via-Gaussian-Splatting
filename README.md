@@ -64,7 +64,7 @@ The reconstructed objects are imported into Isaac Sim and arranged inside the ro
 The RB-Y1 robot is loaded into the environment, and object interaction is tested inside the simulator.
 
 <p align="center">
-  <img src="assets/isaac_sim_environment.png" width="700">
+  <img width="842" height="283" alt="Image" src="https://github.com/user-attachments/assets/4162864e-a297-4399-b6a7-6522a60723a8" />
 </p>
 
 ---
