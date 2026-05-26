@@ -40,7 +40,7 @@ Example objects include:
 - Workspace components
 
 <p align="center">
-  <img src="assets/object_capture_examples.png" width="700">
+  <img width="955" height="295" alt="Image" src="https://github.com/user-attachments/assets/03d5b4f3-e9a7-4f53-b895-e52eabf7b19f" />
 </p>
 
 ---
