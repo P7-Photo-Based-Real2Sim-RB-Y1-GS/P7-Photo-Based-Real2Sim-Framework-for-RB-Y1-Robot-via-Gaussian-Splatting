@@ -5,7 +5,7 @@ The goal of this project is to reconstruct real-world objects and scenes from RG
 
 The final objective is to build a digital twin environment where the RB-Y1 robot can interact with reconstructed real-world objects and generate demonstration data for downstream robot learning tasks.
 <p align="center">
-  <img src="assets/examples.png" width="600">
+  <img src="assets/example.png" width="600">
 </p>
 ---
 
