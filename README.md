@@ -74,13 +74,11 @@ The RB-Y1 robot is loaded into the environment, and object interaction is tested
 The simulated environment is designed to support robot interaction and data collection.  
 In the current stage, the RB-Y1 robot is tested in Isaac Sim with reconstructed objects placed on the table.
 
-Future demonstration data can be collected using:
+ demonstration data collected using:
 - RGBcamera-based teleoperation
-
 <p align="center">
   <img width="1260" height="647" alt="Image" src="https://github.com/user-attachments/assets/6bde0744-3961-427f-a48a-64af657ce194" />
 </p>
-
 ---
 
 ## 3. Overall Pipeline
