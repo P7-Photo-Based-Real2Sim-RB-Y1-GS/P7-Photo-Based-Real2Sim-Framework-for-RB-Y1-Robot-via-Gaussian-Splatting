@@ -103,6 +103,19 @@ Import to Isaac Sim
 RB-Y1 robot interaction
         ↓
 Demonstration data collection
+```
+
+A simplified pipeline is shown below.
+
+```text
+Step 1      Step 2              Step 3              Step 4
+Capture → Preprocess → Convert to Asset → Import to Isaac Sim
+ Images     Images/Scene        Digital Twin        Robot Interaction
+```
+
+<p align="center">
+  <img src="assets/pipeline_overview.png" width="800">
+</p>
 
 ---
 
@@ -161,8 +174,6 @@ For real-time testing, four terminals are recommended.
 │ ROS2 → UDP Bridge          │ Isaac Sim RB-Y1 Teleop     │
 └────────────────────────────┴────────────────────────────┘
 ```
-
----
 
 ### Terminal 1: Run MediaPipe Skeleton Node
 
