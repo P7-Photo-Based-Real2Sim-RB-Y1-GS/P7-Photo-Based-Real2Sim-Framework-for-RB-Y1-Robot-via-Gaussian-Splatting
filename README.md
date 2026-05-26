@@ -78,7 +78,7 @@ Future demonstration data can be collected using:
 - RGBcamera-based teleoperation
 
 <p align="center">
-  <img src="assets/rby1_interaction_scene.png" width="700">
+  <img width="1260" height="647" alt="Image" src="https://github.com/user-attachments/assets/6bde0744-3961-427f-a48a-64af657ce194" />
 </p>
 
 ---
