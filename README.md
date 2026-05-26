@@ -53,7 +53,7 @@ The initial direction considered Gaussian Splatting for photorealistic reconstru
 The generated assets are then verified before importing them into Isaac Sim.
 
 <p align="center">
-  <img src="assets/reconstructed_assets.png" width="700">
+  <img width="974" height="153" alt="Image" src="https://github.com/user-attachments/assets/a60176b8-f85a-44a6-9b40-955e039fcbbe" />
 </p>
 
 ---
@@ -75,11 +75,7 @@ The simulated environment is designed to support robot interaction and data coll
 In the current stage, the RB-Y1 robot is tested in Isaac Sim with reconstructed objects placed on the table.
 
 Future demonstration data can be collected using:
-
-- VR device-based teleoperation
-- Keyboard/controller-based teleoperation
-- Synthetic trajectory generation
-- Robot policy rollout inside Isaac Sim
+- RGBcamera-based teleoperation
 
 <p align="center">
   <img src="assets/rby1_interaction_scene.png" width="700">
