@@ -104,6 +104,8 @@ RB-Y1 robot interaction
         ↓
 Demonstration data collection
 
+---
+
 ## 4. Isaac Sim + Skeleton Teleoperation Pipeline
 
 In addition to the real-to-sim asset pipeline, this repository also includes a skeleton-based teleoperation test for moving the RB-Y1 robot inside Isaac Sim.
