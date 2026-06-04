@@ -559,7 +559,7 @@ Future work includes:
 - Daewon Kim
 - Seungyeon Lee
 - Seunghoon Baek
-- Junhyun Jeon
+- Jihoon Jeon
 
 ---
 
