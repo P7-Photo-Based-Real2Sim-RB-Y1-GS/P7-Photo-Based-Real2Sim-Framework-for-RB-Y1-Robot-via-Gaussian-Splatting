@@ -1,25 +1,25 @@
 # 3D Reconstruction CPU
 
-RGB-D turntable dataset을 CPU 환경에서 3D asset으로 복원하는 Python 프로그램입니다.
+A Python program for reconstructing an RGB-D turntable dataset into 3D assets in a CPU-only environment.
 
-이 프로젝트는 RGB, depth, object mask, camera intrinsics, frame angle metadata를 사용해 물체만 분리하고, 회전축을 추정한 뒤 STL과 외관 포함 GLB를 생성합니다.
+This project uses RGB images, depth maps, object masks, camera intrinsics, and frame angle metadata to isolate the target object, estimate the turntable rotation axis, and generate both STL files for simulation and GLB files with visual appearance.
 
 ## Features
 
-- RGB/depth/mask 기반 object-only point cloud 생성
-- turntable angle metadata 기반 pose 생성
-- 회전축 pivot 자동 추정
-- 회전 방향 자동 선택
-- foreground depth filtering
-- RGB/depth misalignment 대응용 expanded bbox depth mask
-- model-to-frame ICP refinement
-- visual hull 기반 watertight mesh 생성
-- best-view RGB projection 기반 vertex color GLB 생성
-- STL, PLY, GLB export
+* Object-only point cloud generation using RGB, depth, and mask data
+* Pose generation based on turntable angle metadata
+* Automatic estimation of the rotation-axis pivot
+* Automatic selection of the rotation direction
+* Foreground depth filtering
+* Expanded bounding-box depth masking to handle RGB/depth misalignment
+* Model-to-frame ICP refinement
+* Watertight mesh generation using visual hull reconstruction
+* Vertex-colored GLB generation using best-view RGB projection
+* Export support for STL, PLY, and GLB files
 
 ## Dataset Layout
 
-사용자 데이터셋 폴더는 아래 구조를 가져야 합니다.
+The user dataset folder must follow the structure below.
 
 ```text
 <YOUR_DATASET_PATH>/
@@ -40,11 +40,11 @@ RGB-D turntable dataset을 CPU 환경에서 3D asset으로 복원하는 Python �
   conversion_summary.json   # optional
 ```
 
-`frame_index.csv`에는 각 프레임의 `angle_deg` 또는 `angle_deg_unwrapped` 값이 있어야 turntable pose를 안정적으로 만들 수 있습니다.
+The `frame_index.csv` file must include either `angle_deg` or `angle_deg_unwrapped` for each frame in order to generate stable turntable poses.
 
 ## Installation
 
-Python 3.12를 권장합니다.
+Python 3.12 is recommended.
 
 ```powershell
 git clone https://github.com/P7-Photo-Based-Real2Sim-RB-Y1-GS/P7-Photo-Based-Real2Sim-Framework-for-RB-Y1-Robot-via-Gaussian-Splatting.git
@@ -55,11 +55,11 @@ py -3.12 -m venv .venv
 & .\.venv\Scripts\python.exe -m pip install -r .\requirements.txt
 ```
 
-PowerShell 실행 정책 때문에 venv activation이 막힐 수 있습니다. 이 경우 activation 없이 위처럼 `& .\.venv\Scripts\python.exe`를 직접 호출하면 됩니다.
+If virtual environment activation is blocked due to the PowerShell execution policy, you can call the Python executable directly without activation, as shown above with `& .\.venv\Scripts\python.exe`.
 
 ## Quick Check
 
-아래의 `<YOUR_DATASET_PATH>`를 본인 데이터셋 폴더로 바꿔 실행하세요.
+Replace `<YOUR_DATASET_PATH>` with the path to your own dataset folder and run the following command.
 
 ```powershell
 & .\.venv\Scripts\python.exe .\reconstruct_rgbd_object.py `
@@ -67,7 +67,7 @@ PowerShell 실행 정책 때문에 venv activation이 막힐 수 있습니다. �
   --dry-run
 ```
 
-예시:
+Example:
 
 ```powershell
 & .\.venv\Scripts\python.exe .\reconstruct_rgbd_object.py `
@@ -77,7 +77,7 @@ PowerShell 실행 정책 때문에 venv activation이 막힐 수 있습니다. �
 
 ## Recommended Run
 
-가장 쉬운 실행 방법은 PowerShell wrapper를 사용하는 것입니다.
+The easiest way to run the reconstruction pipeline is to use the PowerShell wrapper.
 
 ```powershell
 .\run_reconstruction.ps1 `
@@ -87,7 +87,7 @@ PowerShell 실행 정책 때문에 venv activation이 막힐 수 있습니다. �
   -CleanOutput
 ```
 
-예시:
+Example:
 
 ```powershell
 .\run_reconstruction.ps1 `
@@ -97,11 +97,11 @@ PowerShell 실행 정책 때문에 venv activation이 막힐 수 있습니다. �
   -CleanOutput
 ```
 
-`-Output`을 생략하면 `<YOUR_DATASET_PATH>\reconstruction_realistic_bestview`에 결과가 생성됩니다.
+If `-Output` is omitted, the results will be generated in `<YOUR_DATASET_PATH>\reconstruction_realistic_bestview`.
 
 ## Python Direct Run
 
-PowerShell wrapper 대신 Python을 직접 실행할 수도 있습니다.
+You can also run the Python script directly instead of using the PowerShell wrapper.
 
 ```powershell
 & .\.venv\Scripts\python.exe .\reconstruct_rgbd_object.py `
@@ -131,7 +131,7 @@ PowerShell wrapper 대신 Python을 직접 실행할 수도 있습니다.
 
 ## Output Files
 
-출력 폴더에는 보통 아래 파일들이 생성됩니다.
+The output folder typically contains the following files.
 
 ```text
 estimated_poses_frame_to_ref.csv
@@ -148,14 +148,14 @@ object_only/
   mask/
 ```
 
-시뮬레이션 geometry에는 `object_mesh_visual_hull.stl`을 사용하고, 외관이 필요한 뷰어/시뮬레이터에는 `object_mesh_visual_hull_vertex_color.glb`를 사용하면 됩니다.
+Use `object_mesh_visual_hull.stl` for simulation geometry. If visual appearance is required in a viewer or simulator, use `object_mesh_visual_hull_vertex_color.glb`.
 
 ## RGB-Depth Alignment Note
 
-정확한 표면 복원을 위해서는 depth가 RGB camera 좌표계에 정확히 align되어 있어야 합니다. 단순 resize된 depth는 RGB mask와 픽셀 단위로 맞지 않아 BPA/Poisson 같은 표면 mesh가 찢어지거나 배경이 섞일 수 있습니다.
+For accurate surface reconstruction, the depth data must be properly aligned to the RGB camera coordinate system. If the depth maps are only resized, they may not match the RGB masks at the pixel level, which can cause BPA or Poisson surface meshes to tear or include unwanted background regions.
 
-가능하면 원본 RealSense/ROS bag/db3에서 depth를 color camera 좌표계로 다시 align한 데이터셋을 만드는 것이 좋습니다. 자세한 내용은 [docs/DATASET.md](docs/DATASET.md)를 참고하세요.
+Whenever possible, it is recommended to generate a dataset by re-aligning the depth data to the color camera coordinate system from the original RealSense, ROS bag, or db3 data. For more details, refer to [docs/DATASET.md](docs/DATASET.md).
 
 ## Git and Large Files
 
-생성된 dataset, `.stl`, `.glb`, `.ply`, `.db3`, `.bag` 파일은 대용량이므로 Git에 올리지 않는 것을 권장합니다. `.gitignore`는 이런 파일들을 제외하도록 설정되어 있습니다.
+Generated datasets, `.stl`, `.glb`, `.ply`, `.db3`, and `.bag` files can be very large, so it is recommended not to upload them to Git. The `.gitignore` file is configured to exclude these files.
