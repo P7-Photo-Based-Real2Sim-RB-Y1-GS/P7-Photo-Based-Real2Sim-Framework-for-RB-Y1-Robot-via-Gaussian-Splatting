@@ -108,7 +108,7 @@ TARGET_HAND_LANDMARKS = {
 
 # =========================================================
 # 화면 표시 색상
-# OpenCV는 RGB가 아니라 BGR 순서
+# OpenCV BGR 순서
 # =========================================================
 COLOR_POSE_POINT = (0, 0, 255)       # 빨강
 COLOR_POSE_TEXT = (0, 255, 0)        # 초록
@@ -121,11 +121,7 @@ COLOR_ERROR = (0, 0, 255)            # 빨강
 # 보조 함수
 # =========================================================
 def get_valid_depth(depth_frame, u, v, search_radius=5):
-    """
-    특정 pixel의 depth가 0일 수 있으므로,
-    주변 픽셀에서 유효한 depth를 찾아 평균냄.
-    반환값 단위: meter
-    """
+  
     depths = []
 
     for dy in range(-search_radius, search_radius + 1):
@@ -179,7 +175,6 @@ def convert_camera_to_isaac_position(camera_pos):
         RealSense Z 전방    -> Isaac Y
         RealSense Y 아래쪽  -> Isaac Z의 음수
 
-    즉:
         카메라 오른쪽 = Isaac +X
         카메라 앞쪽   = Isaac +Y
         카메라 위쪽   = Isaac +Z
@@ -208,10 +203,7 @@ def make_3d_landmark_data(
     image_height,
     extra_fields=None,
 ):
-    """
-    normalized image landmark 좌표를 받아서
-    pixel 좌표, depth, camera 3D 좌표, Isaac 좌표 계산
-    """
+
 
     u = int(image_x * image_width)
     v = int(image_y * image_height)
