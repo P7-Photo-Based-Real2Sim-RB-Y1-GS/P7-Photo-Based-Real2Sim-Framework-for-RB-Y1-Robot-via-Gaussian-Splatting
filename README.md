@@ -75,7 +75,7 @@ The simulated environment is designed to support robot interaction and data coll
 In the current stage, the RB-Y1 robot is tested in Isaac Sim with reconstructed objects placed on the table.
 
  demonstration data collected using:
-- RGBcamera-based teleoperation
+- RGB-D camera-based teleoperation
 <p align="center">
   <img width="1260" height="647" alt="Image" src="https://github.com/user-attachments/assets/6bde0744-3961-427f-a48a-64af657ce194" />
 </p>
