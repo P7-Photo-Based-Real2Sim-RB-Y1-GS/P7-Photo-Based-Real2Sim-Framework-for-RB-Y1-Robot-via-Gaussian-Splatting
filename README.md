@@ -80,7 +80,7 @@ In the current stage, the RB-Y1 robot is tested in Isaac Sim with reconstructed 
   <img width="1260" height="647" alt="Image" src="https://github.com/user-attachments/assets/6bde0744-3961-427f-a48a-64af657ce194" />
 </p>
 
-For more detailed information, please refer to the file in the `mediapipe2udp_output` directory.
+For more detailed information, please refer to the `mediapipe2udp_output` directory.
 
 
 ## 3. Overall Pipeline
