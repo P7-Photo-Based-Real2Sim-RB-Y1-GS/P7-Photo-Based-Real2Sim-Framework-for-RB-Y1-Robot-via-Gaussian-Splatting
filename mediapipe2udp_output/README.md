@@ -1,6 +1,6 @@
 ## Overview
 
-System: The code is currently tested only on Linux.
+**System**: The code is currently tested only on Linux.
 
 This project uses the Intel RealSense D435i camera and Google’s open-source MediaPipe 0.10.9 version framework at python virtual environment.
 
