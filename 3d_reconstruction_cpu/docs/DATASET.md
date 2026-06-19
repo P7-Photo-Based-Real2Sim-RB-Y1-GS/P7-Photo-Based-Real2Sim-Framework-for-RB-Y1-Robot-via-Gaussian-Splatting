@@ -1,72 +1,42 @@
-# Dataset and RGB-Depth Alignment
+# Dataset Format
 
-## Required Files
-
-The reconstruction script expects a dataset folder like this:
+The reconstruction script expects a three-pass RealSense RGB-D dataset.
 
 ```text
 object_001/
-  rgb/
-  depth/
-  masks/
-  cam_K.txt
-  frame_index.csv
+  camera_intrinsics.json
+  pass_01_level/
+    rgb/frame_000000.png
+    depth/frame_000000.png
+    mask_refined/frame_000000.png
+    metadata.csv
+  pass_02_high/
+    rgb/
+    depth/
+    mask_refined/
+    metadata.csv
+  pass_03_low/
+    rgb/
+    depth/
+    mask_refined/
+    metadata.csv
 ```
 
-## RGB, Depth, and Mask Coordinate System
+## Required Data
 
-For high-quality surface reconstruction, RGB, depth, and mask images should refer to the same camera coordinate system.
+- `rgb/`: color frames.
+- `depth/`: uint16 depth frames, aligned to the color stream.
+- `mask_refined/`: binary or grayscale SAM2 object masks.
+- `metadata.csv`: frame angle metadata. The script looks for columns such as
+  `stage_angle_deg`, `angle_deg`, or `turntable_angle_deg`.
+- `camera_intrinsics.json`: color camera intrinsics and depth scale.
 
-The ideal setup is:
+## Alignment Requirement
 
-- RGB image is in color camera coordinates.
-- Depth image is aligned to the color camera.
-- Mask image is in the same pixel coordinates as RGB.
-- `cam_K.txt` is the color camera intrinsic matrix for the aligned images.
+Depth images should be aligned to RGB camera coordinates. The script uses the
+color camera intrinsics for back-projection because the captured depth stream is
+expected to be aligned to the color stream.
 
-If depth was only resized to RGB resolution, it is not truly aligned. This can cause:
-
-- object depth and background depth mixed inside a mask
-- missing object edges
-- duplicated or warped geometry
-- poor BPA/Poisson surface meshes
-
-## Best Fix
-
-Regenerate the dataset from the original capture using calibrated RGB-depth alignment.
-
-For Intel RealSense, the desired operation is conceptually:
-
-```python
-align = rs.align(rs.stream.color)
-aligned_frames = align.process(frames)
-aligned_depth = aligned_frames.get_depth_frame()
-color = aligned_frames.get_color_frame()
-```
-
-For ROS/RealSense, prefer an already aligned depth topic such as:
-
-```text
-/aligned_depth_to_color/image_raw
-```
-
-or regenerate aligned depth by using:
-
-- depth camera intrinsics
-- color camera intrinsics
-- depth-to-color extrinsics or TF transform
-- z-buffer projection into the color image plane
-
-## Current Fallback Strategy
-
-When aligned depth is unavailable, this project uses a robust fallback:
-
-- expanded RGB-mask bounding box
-- foreground depth clustering
-- yellow object color filtering
-- turntable pose estimation
-- visual hull carving from RGB masks
-- best-view RGB projection for GLB vertex colors
-
-This produces a stable watertight object mesh, but it cannot fully recover fine molded surface details that are absent or misregistered in depth.
-
+If RGB, depth, and masks are not pixel-aligned, depth from the background may be
+included inside the mask. This produces duplicated surfaces, noisy edges, or
+over-smoothed meshes.

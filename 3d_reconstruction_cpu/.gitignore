@@ -1,44 +1,32 @@
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-.Python
 .venv/
 venv/
 env/
 .env
-.env.*
 
-# Tooling and caches
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-htmlcov/
-
-# Local work/output folders
+# Local datasets and generated outputs
 data/
 outputs/
 work/
-object_only/
-reconstruction_*/
-recon_output/
-recon_reg_output/
-reconstruction_diagnostics/
-
-# Large generated reconstruction assets
-*.stl
-*.ply
-*.glb
-*.obj
-*.mtl
-
-# Local datasets and raw captures
 object_*/
 rgb/
 depth/
 masks/
+mask/
+mask_refined/
+pass_*/
+reconstruction_*/
+*_reconstruction/
+
+# Large reconstruction artifacts
+*.ply
+*.stl
+*.glb
+*.obj
+*.mtl
+*.zip
 *.db3
 *.bag
 *.mcap
@@ -49,4 +37,3 @@ Thumbs.db
 desktop.ini
 .vscode/
 .idea/
-
